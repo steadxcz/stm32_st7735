@@ -22,16 +22,19 @@ Dialog DLL:      TCM.DLL V1.53.0.0
  
 <h2>Project:</h2>
 C:\Users\User\Desktop\display\MDK-ARM\display.uvprojx
-Project File Date:  05/22/2022
+Project File Date:  05/23/2022
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'display'
 compiling main.c...
+../Core/Src/main.c(214): warning:  #223-D: function "sprintf" declared implicitly
+  		sprintf(a,"%.2d:%.2d:%.2d",sTime.Hours,sTime.Minutes,sTime.Seconds);
+../Core/Src/main.c: 1 warning, 0 errors
 linking...
-Program Size: Code=7200 RO-data=10816 RW-data=56 ZI-data=1720  
+Program Size: Code=8142 RO-data=5498 RW-data=44 ZI-data=1844  
 FromELF: creating hex file...
-"display\display.axf" - 0 Error(s), 0 Warning(s).
+"display\display.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -55,7 +58,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.5.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>
