@@ -20,7 +20,7 @@
 
 #define ST7735_COLOR565(r, g, b) (((r & 0xF8) << 8) | ((g & 0xFC) << 3) | ((b & 0xF8) >> 3))
 #define SWAP_INT16_T(a, b) { int16_t t = a; a = b; b = t; }
-#define DELAY 0x80
+#define DELAY 0x20
 
 #if defined(ST7735_1_8_DEFAULT_ORIENTATION) || defined(ST7735S_1_8_DEFAULT_ORIENTATION)
 static uint8_t _data_rotation[4] = { ST7735_MADCTL_MX, ST7735_MADCTL_MY, ST7735_MADCTL_MV, ST7735_MADCTL_RGB };
