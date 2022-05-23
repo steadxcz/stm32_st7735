@@ -1,7 +1,7 @@
 # stm32_st7735
 Project based on st7735 library from internet.
 Connects st7735 display to the stm32f407vet6 board.
-Displays time on screen from rtc . 
+
 
 Display wiring is
 1 GND
