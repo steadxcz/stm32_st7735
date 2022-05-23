@@ -200,6 +200,11 @@ int main(void)
 	ST7735_Init();
 	ST7735_SetRotation(1);
 	ST7735_FillScreen(ST7735_WHITE);
+	
+	  char day[4];
+		char time[8];
+		char date[10];
+		
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -207,13 +212,33 @@ int main(void)
     /* USER CODE END WHILE */
     //demoTFT();
 
-		char  a[8];
 		HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN); // RTC_FORMAT_BIN , RTC_FORMAT_BCD
 		HAL_RTC_GetDate(&hrtc, &sDate, FORMAT_BIN);    
-		sprintf(a,"%.2d:%.2d:%.2d",sTime.Hours,sTime.Minutes,sTime.Seconds); 
-    ST7735_DrawString(15, 50, a, Font_16x26, ST7735_BLACK, ST7735_WHITE);
-    
+		sprintf(time,"%.2d:%.2d:%.2d",sTime.Hours,sTime.Minutes,sTime.Seconds); 
+		sprintf(date,"%.2d/%.2d/20%.2d",sDate.Date,sDate.Month,sDate.Year);
+		
+		
+	
+		switch (sDate.WeekDay)
+		{
+			case 1 : strcpy(day, "MON\0");  break;
+			case 2 : strcpy(day, "TUE\0");  break;
+			case 3 : strcpy(day, "WED\0");  break;
+			case 4 : strcpy(day, "THU\0");  break;
+			case 5 : strcpy(day, "FRI\0");  break;
+			case 6 : strcpy(day, "SAT\0");  break;
+			case 7 : strcpy(day, "SUN\0");  break;			
+			default : break;
 
+		};
+		
+		
+    ST7735_DrawString(15, 50, time, Font_16x26, ST7735_BLACK, ST7735_WHITE);
+    ST7735_DrawString(25, 90, date, Font_11x18, ST7735_BLACK, ST7735_WHITE);
+		ST7735_DrawString(90, 5, day, Font_11x18, ST7735_BLACK, ST7735_WHITE);
+		
+	
+		
 		if(!HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_3)){
 			if(sTime.Minutes == 59){
 				sTime.Minutes = 0;
