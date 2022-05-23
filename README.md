@@ -12,3 +12,5 @@ Display wiring is
 6 DC(a0)
 7 RST
 8 BL (+5v0 220r inbuilt resistor)
+
+has a branch with connected rtc
