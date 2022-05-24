@@ -22,6 +22,7 @@
 #include "st7735.h"
 #include "string.h"
 #include <stdio.h>
+#include "math.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 uint8_t r = 1;
@@ -167,6 +168,10 @@ ST7735_SetRotation(r);
 }
 
 
+double mapTimeToDeg( uint8_t hour, uint8_t minute){	
+	uint8_t hr = hour < 13 ? hour : hour - 12;			
+	return ((30 * hr) + (0.5 * minute)) * 0.0174533;
+}
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -201,23 +206,23 @@ int main(void)
 	ST7735_SetRotation(1);
 	ST7735_FillScreen(ST7735_WHITE);
 	
-	  char day[4];
-		char time[8];
-		char date[10];
-		
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
+	char day[4];
+  char time[8];
+	char date[10];
+	double degree;
+
   while (1)
   {
-    /* USER CODE END WHILE */
-    //demoTFT();
+
 
 		HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN); // RTC_FORMAT_BIN , RTC_FORMAT_BCD
 		HAL_RTC_GetDate(&hrtc, &sDate, FORMAT_BIN);    
 		sprintf(time,"%.2d:%.2d:%.2d",sTime.Hours,sTime.Minutes,sTime.Seconds); 
 		sprintf(date,"%.2d/%.2d/20%.2d",sDate.Date,sDate.Month,sDate.Year);
-		
-		
+		ST7735_DrawLine(25,25,((sin(degree)*23)+25),((-cos(degree)*25)+25),ST7735_WHITE);
+    degree = mapTimeToDeg(sTime.Hours,sTime.Minutes);	
+    ST7735_DrawLine(25,25,((sin(degree)*23)+25),((-cos(degree)*25)+25),ST7735_BLACK);
+		ST7735_DrawCircle(25,25,23,ST7735_BLACK);
 	
 		switch (sDate.WeekDay)
 		{
@@ -233,9 +238,9 @@ int main(void)
 		};
 		
 		
-    ST7735_DrawString(15, 50, time, Font_16x26, ST7735_BLACK, ST7735_WHITE);
+    ST7735_DrawString(15, 55, time, Font_16x26, ST7735_BLACK, ST7735_WHITE);
     ST7735_DrawString(25, 90, date, Font_11x18, ST7735_BLACK, ST7735_WHITE);
-		ST7735_DrawString(90, 5, day, Font_11x18, ST7735_BLACK, ST7735_WHITE);
+		ST7735_DrawString(85, 20, day, Font_11x18, ST7735_BLACK, ST7735_WHITE);
 		
 	
 		
@@ -248,7 +253,7 @@ int main(void)
 			HAL_Delay(150);
 		}
 		if(!HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_4)){
-      if(sTime.Hours==24){
+      if(sTime.Hours==23){
 				sTime.Hours = 0;
 			} else sTime.Hours +=1;
       sTime.Seconds = 0;
@@ -264,6 +269,8 @@ int main(void)
   * @brief System Clock Configuration
   * @retval None
   */
+
+
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};

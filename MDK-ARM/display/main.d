@@ -40,3 +40,4 @@ display\main.o: ../Core/Inc/st7735_cfg.h
 display\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 display\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 display\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+display\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
